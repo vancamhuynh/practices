@@ -8,8 +8,9 @@ app.get('/', (req, res) => res.send('Hello Van!!'))
 
 app.listen(port, () => console.log(`Example app listen in port ${port}!!!`))
 
-var mongoAtlas = 'mongodb+srv://vanhuynh:Oldman1908@cluster0-buffa.mongodb.net/admin'
+// var mongoAtlas = 'mongodb+srv://vanhuynh:Oldman1908@cluster0-buffa.mongodb.net/admin'
 // var mongoAtlas = 'mongodb+srv://andyluu:oldman1908@cluster0-buffa.mongodb.net/admin'
+var mongoAtlas = 'mongodb+srv://vanhuynh:Oldman1908@cluster0-buffa.mongodb.net/test?retryWrites=true'
  mongoose.connect(mongoAtlas, function(error) {
    if(error) throw error;
 
@@ -34,18 +35,17 @@ var mongoAtlas = 'mongodb+srv://vanhuynh:Oldman1908@cluster0-buffa.mongodb.net/a
    console.log("start saving students");
 
    student.save(function(error, student) {
+     console.log("===this is save===");
      if (error) throw (error)
      console.log('finish created student, now search')
      console.log(student);
 
-   //   studentModel.find({id: 123}, (error, student) => {
-   //     if (error) console.error(error)
-   //     if (student) console.log(`found: ${student}`)
-   //   }
-   // });
+     studentModel.find({id: 123}, (error, student) => {
+       if (error) console.error(error)
+       if (student) console.log(`found: ${student}`)
+       mongoose.connection.close()
+     });
+
 
  })
 })
-
-
-mongoose.connection.close()
